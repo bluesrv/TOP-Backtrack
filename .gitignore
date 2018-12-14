@@ -1,0 +1,7 @@
+# exclude enviroment and compiled files
+out
+output.dat
+test_cases/
+test_cases/*
+.vscode
+input.dat
