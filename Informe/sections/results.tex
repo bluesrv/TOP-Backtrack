@@ -1,0 +1,8 @@
+\section{Resultados}\label{results}
+Los resultados y sus comparaciones se muestran en el Cuadro \ref{tab:table1}, donde se evidencia el alto impacto que Tmax tiene sobre el tiempo de ejecuci\'on del algoritmo, ya que como es Backtrack, inmediatamente desecha las ramas donde se generan soluciones no v\'alidas, al aumentar Tmax, aumentan las soluciones v\'alidas y por lo tanto se recorre mas el espacio de b\'usqueda completo.
+
+Adem\'as notamos como para las instancias p2.2.d, p2.2.e, p2.2.j, p2.2.k y p2.3.h no se obtuvieron rutas \'optimas, lo cual representa a un $85\%$ de efectividad con respecto de la soluci\'on mostrada en Boussier et al\cite{exactAlgorithm}, y obteniendo en un $61\%$ de los casos un tiempo de ejecuci\'on considerablemente peor seg\'un la notaci\'on y las sifras significativas utilizadas.
+
+Esta diferencia en resultados de rutas \'optimas se debe a probablemente un error en la implementaci\'on, se utiliza hasta el \'ultimo momento para revisar el algoritmo pero hasta el momento no se ha logrado identificar donde recae el problema por el que se ignoran estas soluciones. En cuanto al tiempo de ejecuci\'on, es de esperarse que un Backtrack se demore esta cantidad de tiempo y aumente de esa forma cuando la cantidad de soluciones factibles aumenta, y aunque se revis\'o persistentemente la implementaci\'on buscando donde podr\'ia mejorarse el tiempo de ejecuci\'on, las mejoras posibles s\'olo implicaban una mejora en cantidad constante y poco significativa para la ejecuci\'on final del problema.
+\input{sections/resultsTable.tex}
+

@@ -1,0 +1,6 @@
+\section{Representaci\'on}\label{represent}
+La representaci\'on utilizada en el algoritmo propuesto para las soluciones en esta entrega se deriva principalemente de una matriz de adyasencia que indican los arcos que conforman cada una de las rutas, de la cual junto a otras variables se construyen $m$ listas con los nodos que conforman la ruta, una lista de tama\~no $m$ con el tiempo que se demora cada ruta y un puntaje asociado a la soluci\'on.
+
+Esta soluci\'on se genera a partir de la extracci\'on de datos que entregan tres variables que van cambiando durante la ejecuci\'on del algoritmo, las cuales son una lista binaria de tama\~no $n$ que indica si el $i$-\'esimo vecino fue visitado o no, una matriz binaria $x$ de $n\times n$ que indica si el arco $(i,j)$ fue utilizado, y una matriz de valores continuos $z$ de tama\~no $n\times n$ que indica el tiempo de llegada de al nodo $i$ desde el nodo $j$.
+
+El espacio de b\'usqueda viene dado a lo mas por la permutaci\'on de una matriz binaria de adyasencia de tama\~no $n \times n$, lo cual nos da un orden m\'aximo de $O(2^{n^2})$ pero que se ve disminuido dependiendo de la cantidad de rutas que tenga la isntanciaci\'on y dependiendo del tiempo m\'aximo de cada ruta, lo cual igualmente nos va a limitar la cantidad de soluciones factibles.

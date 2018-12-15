@@ -1,0 +1,37 @@
+\begin{algorithm}[H]
+\KwData{routesAmm = 0, addRoutes = true}
+\KwResult{Best route for instance}
+begin \textbf{bTrack(i)}\;
+\If{i is end node}{
+\For{last nodes in routes}{
+try to connect with end node\;
+}
+\If{connections possible}{
+\eIf{this is best solution}{
+update best solution\;}{
+ignore it\;
+}
+}
+}
+\ElseIf{addRoutes AND i is not visited}{
+\eIf{connection to initial node possible}{
+connect\;
+bTrack(i+1)\;
+undoChanges\;
+\tcc{Connecting and undoing updates routesAmm and addRoute}
+}{
+bTrack(i+1)
+}
+}
+\If{i is not visited}{
+\For{last nodes in routes}{
+\If{connection possible}{
+connect\;
+bTrack(i+1)\;
+undo\;
+}
+}
+bTrack(i+1)
+}
+\tcc{Initial call is done with bTrack(1)}
+\end{algorithm}

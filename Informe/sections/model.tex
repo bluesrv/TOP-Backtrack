@@ -1,0 +1,114 @@
+\section{Modelo Matem\'atico}\label{model}
+Como mencionado en la Secci\'on \ref{sota}, existen dos modelos matem\'aticos para este problema dignos de mencionar. El primero corresponder\'ia a la representaci\'on general del problema utilizado en la gran mayor\'ia de los articulos revisados, el cual es extra\'ido del articulo de Ke et al.~\cite{KE2008648}. Mientras que el segundo modelo a presentar corresponde al utilizado por Bianchessi et al.~\cite{doi:10.1111/itor.12422} para generar la soluci\'on que ellos plantean.
+
+\subsection{Modelo General}\label{model:general}
+\noindent
+\textbf{Par\'ametros}:\\
+\begin{itemize}
+    \item $G = (V,E)$ un grafo completo donde $V = \{1,...,n\}$ es un conjunto de v\'ertices y $E = \{(i,j)|i,j\in V\}$ conjunto de arcos que los unen.\\
+    \item $S_{i}$ puntaje asociado al nodo $i \in N$ donde $S_{1} = S_{n} = 0$\\
+    \item $C_{ij}$ costo asociado a recorrer el arco $(i,j) \in E$, que tambi\'en se puede referir a las distancia entre los nodos.\\
+    \item $T_{max}$ es el tiempo o distancia m\'axima que puede demorar cada ruta.\\
+    \item $m$ cantidad de participantes, que definen la cantidad de rutas.\\
+\end{itemize}
+\textbf{Variables}:\\
+\begin{itemize}
+    \item $y_{ik}\; (i = 1,...,n;\, k = 1,...,m)$ variable binaria que toma el valor de 1 si el v\'ertice $i$ es visitado en la ruta $k$, 0 sino.\\
+    \item $x_{ijk}\; (i,j = 1,...,n;\, k = 1,...,m)$ variable binaria que toma el valor de 1 si el arco $(i,j)$ es visitado en la ruta $k$, 0 sino. Ya que $C_{ij} = C_{ji}$, s\'olo est\'a definido $x_{ijk}(i<j)$.\\
+    \item $U$ es un subconjunto de $V$.\\
+\end{itemize}
+\textbf{Funci\'on Objetivo}:
+\begin{equation}\label{eq:fx}
+    Max \sum_{i=2}^{|N|-1}\sum_{k=1}^{m} S_{i}y_{ik}
+\end{equation}
+El objetivo de la funci\'on es maximizar la suma del puntaje obtenido entre las rutas.\\
+
+\noindent
+\textbf{Restricciones}:\\
+\begin{equation}\label{eq:cons1}
+    \sum_{j=2}^{n}\sum_{k=1}^{m}x_{1jk} = \sum_{i=1}^{n-1}\sum_{k=1}^{m}x_{ink} = m
+\end{equation}
+Esta restricci\'on obliga que toda ruta parta del nodo de inicio y llegue al nodo de llegada.
+\begin{equation}\label{eq:cons2}
+    \sum_{i<j}x_{ijk} + \sum_{i>j}x_{jik} = 2y_{jk}\; (j=2,...,n-1;\,k=1,...,m)
+\end{equation}
+Esta restricci\'on asegura la conectividad de cada ruta.
+\begin{equation}\label{eq:cons3}
+    \sum_{k=1}^{m}y_{ik} \leq 1\; (i=2,...,n-1)
+\end{equation}
+Esta restricci\'on asegura que cada v\'ertice, a excepci\'on del de inicio y de llegada, sea visitado a lo mas una vez.
+\begin{equation}\label{eq:cons4}
+    \sum_{i=1}^{n-1}\sum_{j>k}C_{ij}x_{ijk} \leq T_{max}\; (k = 1,...,m)
+\end{equation}
+Esta restricci\'on limita el tiempo o la distancia a recorrer de cada ruta.
+\begin{equation}\label{eq:cons5}
+    \sum_{i,j\in U}x_{ijk} \leq |U| - 1\; (U\subset V\setminus \{1,n\};\, 2\leq |U| \leq n-2;\, k=1,...,m)
+\end{equation}
+Esta restricci\'on se asegura que las subrutas est\'en prohibidos.
+\begin{equation}\label{eq:nat1}
+    x_{ijk} \in \{0,1\} \; (1\leq i < j \leq n;\, k = 1,...,m)
+\end{equation}
+\begin{equation}\label{eq:nat2}
+    y_{1k} = y_{nk} = 1,\, y_{ik}\in \{0,1\}\; (i=2,...,n-1;\, k=1,...,m)
+\end{equation}
+La equaciones \eqref{eq:nat1} y \eqref{eq:nat2} aseguran la naturaleza de las variables del problema.\\
+Se deduce que el espacio de b\'usqueda de este modelo debe ser del orden de $O(2^{n^3})$ ya que corresponder\'ia a una permutaci\'on binaria de una matriz tridimensional.
+
+\subsection{Modelo de Bianchessi et al.}\label{model:bian}
+\noindent
+\textbf{Par\'ametros}:\\
+\indent Los par\'ametros de este modelo son los mismos que los presentados en \ref{model:general}, por lo que se presentar\'an las variables, funci\'on objetivo y restricciones conforme a estos. S\'olo, y por comodidad se considera un par\'ametro como una especificaci\'on de otro, donde N son los v\'ertices intermedios del de inicio y el de llegada, es decir $N = V - \{v_1,v_n\}$\\
+
+\noindent
+\textbf{Variables}:\\
+\indent Las variables binarias $x_{ij}$ para cada $(i,j) \in E$ e $y_{i}$ donde $i\in N$ toman valor 1 si el arco $(i,j)$ es usado y el nodo $i$ es visitado, 0 sino.\\
+$z_{ij}\, (i,j)\in A\setminus \{1,n\}$ es una variable continua que representa la distancia que ha recorrido una ruta al momento de llegar a un v\'ertice $j$ viniendo de un v\'ertice $i$.\\
+Para cada conjunto $S\subseteq N$, se definen $\delta^{+}(S) = \{(i,j) \in A:i\in S, j\notin S\}$ y $\delta^{-}(S) = \{(i,j) \in A:i\notin S, j\in S\}$  como los conjuntos de arcos saliendo y entrando el conjunto S respectivamente, con $\delta^{+}(i) = \delta^{+}(\{i\})$ y $\delta^{-}(i) = \delta^{-}(\{i\})$.\\
+
+\noindent
+\textbf{Funci\'on Objetivo}:\\
+\begin{equation}\label{eq2:fx}
+    Max \sum_{i\in N}S_{i}y_{i}
+\end{equation}
+Maximiza la suma de los puntajes de los nodos visitados.\\
+
+\noindent
+\textbf{Restricciones}:\\
+\begin{equation}\label{eq2:cons1}
+    \sum_{j\in N}x_{1j} = \sum_{i\in N}x_{i,n} = m
+\end{equation}
+Esta restricci\'on asegura que la cantidad de rutas que salgan, sean los mismos que lleguen y tienen que ser m.
+\begin{equation}\label{eq2:cons2}
+    \sum_{(j,i)\in \delta^{-}(i)}x_{ji} = \sum_{(i,j)\in \delta^{+}(i)}x_{ij} = y_{i} 
+\end{equation}
+Esta restricci\'on asegura que la cantidad de rutas que fluyan por el i-\'esimo nodo sea a los mas uno.
+\begin{equation}\label{eq2:cons3}
+    z_{0j} = C_{0j}x_{0j}
+\end{equation}
+Esta restricci\'on asegura que el flujo se origine del nodo inicial.
+\begin{equation}\label{eq2:cons4}
+    \sum_{(i,j)\in \delta^{+}(i)}z_{ij} - \sum_{(j,i)\in \delta^{-}(i)}z_{ji} = \sum_{(i,j)\in \delta^{+}(i)}C_{ij}x_{ij}
+\end{equation}
+Esta restricci\'on asegura la continuidad del flujo actualizando el valor de llegada a cada nodo.
+\begin{equation}\label{eq2:cons5}
+    z_{ij} \leq (T_{max} - C_{j,n})x_{ij}\; ((i,j)\in E\setminus\{1,n\})
+\end{equation}
+Esta restricci\'on asegura que el costo de cada flujo resultante no sea mayor al m\'aximo permitido.\\
+\begin{equation}\label{eq2:cons6}
+    z_{ij} \geq (C_{1i} + C_{ij})x_{ij}\; ((i,j)\in E\setminus\{1,n\})
+\end{equation}
+Esta restricci\'on impone un l\'imite inferior en los valores que tome la variable \textbf{z} de forma que se restrinjan los rango de los valores posibles que esta variable pueda tomar en soluciones intermedias. Notar que si $x_{ij} = 1$, entonces $z_{ij}$ denota la distancia de llegada al nodo j, mientras que $x_{ij} = 0 \implies z_{ij} = 0$.
+\begin{equation}\label{eq2:cons7}
+    y_{i} \in \{0,1\}\; (i\in N)
+\end{equation}
+\begin{equation}\label{eq2:cons8}
+    x_{ij} \in \{0,1\}\; ((i,j)\in E\setminus\{1,n\})
+\end{equation}
+\begin{equation}\label{eq2:cons9}
+    0 \leq x_{1n} \leq m
+\end{equation}
+\begin{equation}\label{eq2:cons10}
+    \sum_{(i,j)\in A\setminus\{(1,n)\}}C_{ij}x_{ij}\leq m \times T_{max}
+\end{equation}
+Las ecuaciones \eqref{eq2:cons7}, \eqref{eq2:cons8} y \eqref{eq2:cons9} restrinjen la naturaleza de las variables, mientras que \eqref{eq2:cons10} es una restricci\'on hecha para fortalecer la formulaci\'on e impone una duraci\'on m\'axima global a las rutas.\\
+El espacio de b\'usqueda de este modelo tiene un orden de $O(2^{n^2})$ ya que corresponde a la permutaci\'on de una matriz binaria.

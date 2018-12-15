@@ -1,0 +1,23 @@
+\section{Descripci\'on del algoritmo}\label{descript}
+Debido a la naturaleza del problema, realizar BackTrack con GBJ era lo mismo que hacer un BackTrack completo, debido a que el grafo de restricciones era totalmente conexo, raz\'on por la cual la implementaci\'on que se presenta a continuaci\'on es la de un BackTracking completo y no existe una funci\'on de GBJ.\\
+
+Una vez leidos todos los par\'ametros se genera una lista de v\'ertices, los cuales corresponden a clases con posici\'on x, posici\'on y, y un puntaje asociado, y una matriz de ejes de tama\~no $n \times n$ con la distancia euclidiana entre $(i,j)$ que es igual a $(j,i)$, que luego se pasan por referencia a una clase instancia del problema la cual posee referencias a todas las variables de forma de utilizarlas como variables globales al momento de ejecutar el algoritmo e intentar mantener el espacio de memoria utilizada por las variables constante.
+
+El algoritmo de Backtrack se hace realizando una recursi\'on con paso de un par\'ametro entero sin declariaci\'on de variables dentro de el y con llamado a funciones para ser inmediatamente evaluadas, por lo cual la memoria stack utilizada por el algoritmo recursivo es a lo mas un \'arbol de profundidad $log(n)$ con a lo mas $m$ hijos por nodo ra\'iz relativo, lo cual genera una cantidad de hojas de $m^{log(n)}$.
+
+El algoritmo recibe como par\'ametro un \'indice $i$ y eval\'ua como caso base si este $i$ corresponde al \'indice $n-1$ para saber si es que ya se recorrieron todos los $i$-\'esimos vecinos anteriores, luego llama a un chequeo para ver si del $n$-\'esimo nodo se pueden conectar los nodos que hasta el momento generan las rutas sin pasarse del tiempo m\'aximo permitido, en caso de poderse, se verifica si la soluci\'on actual es mejor que la existente y en caso de no ser as\'i simplemente se ignora. Luego se eliminan todos los cambios hechos en la matriz al intentar conectar el \'ultimo nodo con los de las rutas hasta el momento y se retorna al nivel anterior de recursi\'on. El segundo caso que el algoritmo verifica es si es que no existen las cantidades de rutas que la instancia pide, en cuyo caso intenta conectar el $i$-\'esimo nodo actual al nodo de origen, si puede lo conecta y llama a la recursi\'on para el siguiente \'indice y al volver deshace el cambio. Finalmente el tercer caso se verifica independiente de los otros dos, de forma que al volver al nivel recursivo del segundo caso habiendo sido exitoso, de todas formas se eval\'ua el tercer caso, utilizando as\'i el $i$-\'esimo nodo ya sea, sin necesidad de que hayan $m$ rutas, o habi\'endolas, eval\'uandolo de todas formas si es que no ha sido visitado, para esto se verifica si este nodo se puede conectar con los \'ultimos nodos que componen las rutas actuales, de forma de mantener la conectividad y la cantidad de rutas actuales, evitando as\'i que existan subrutas discontinuas o con mayor grado de salida que $1$. En caso de poder conectarse con alguno lo hace, para luego al volver deshacer los cambios, para luego igualmemente seguir con el siguiente \'indice sin haberse conectado.
+
+A continuaci\'on se muestra un pseudo-c\'odigo de formageneral que explica el algoritmo recursivo:
+
+\input{sections/algorithm.tex}
+
+A nivel de implementaci\'on, las conexiones se hacen al verificarse, es decir, invoca a una funci\'on que retorna verdadero si es se pudo actualizar las matrices $x$ y $z$, al igual que el arreglo $y$ indicando que se agreg\'o el nodo, y falso si no se pudo. Ya que las conexiones y las verificaciones son en tiempo constante debido a que se acceden a \'indices espec\'ificos de arreglos fijos, no agrega mucha complejidad a la recursividad.
+
+La funci\'on de recursividad de este algoritmo viene representada de forma muy general como:
+
+\begin{align*}
+    T(k) = m·T(k+1) + m\\
+    T(n) = m\\
+\end{align*}
+
+Lo cual indica que aproximadamente el tiempo de ejecuci\'on del algoritmo es de $O(m^n)$ sin considerar el impacto que tiene el tiempo m\'aximo de cada ruta.

@@ -1,0 +1,75 @@
+\documentclass[letter, 10pt]{article}
+%%\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+\usepackage[top=3cm,bottom=3cm,left=3.5cm,right=3.5cm,footskip=1.5cm,headheight=1.5cm,headsep=.5cm,textheight=3cm]{geometry}
+\usepackage[]{algorithm2e}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{float}
+
+% Footnote size was too big
+\usepackage[bottom]{footmisc}
+
+% References reformatting for personal acomodations
+\usepackage[numbib]{tocbibind}
+\renewcommand{\refname}{Referencias}
+\renewcommand{\abstractname}{Resumen}
+
+% Keywords command
+\providecommand{\keywords}[1]
+{
+  \small	
+  \textbf{\textit{Keywords:}} #1
+}
+
+\begin{document}
+\title{Inteligencia Artificial \\ \begin{Large}Informe Final: Team Orienteering Problem\end{Large}}
+\author{Sebasti\'an Ignacio Ram\'irez Vidal}
+\date{\today}
+\maketitle
+
+
+%--------------------No borrar esta secci\'on--------------------------------%
+\section*{Evaluaci\'on}
+
+\begin{tabular}{ll}
+Mejoras 1ra Entrega (10 \%): &  \underline{\hspace{2cm}}\\
+C\'odigo Fuente (10 \%): &  \underline{\hspace{2cm}}\\
+Representaci\'on (15 \%):  & \underline{\hspace{2cm}} \\
+Descripci\'on del algoritmo (20 \%):  & \underline{\hspace{2cm}} \\
+Experimentos (10 \%):  & \underline{\hspace{2cm}} \\
+Resultados (10 \%):  & \underline{\hspace{2cm}} \\
+Conclusiones (20 \%): &  \underline{\hspace{2cm}}\\
+Bibliograf\'ia (5 \%): & \underline{\hspace{2cm}}\\
+ &  \\
+\textbf{Nota Final (100)}:   & \underline{\hspace{2cm}}
+\end{tabular}
+%---------------------------------------------------------------------------%
+
+\vspace{2cm}
+
+
+\begin{abstract}
+Un problema com\'un en la industria es la b\'usqueda de rutas \'optimas para realizar servicios que requieren el despliegue de m\'ultiples unidades para recubrir puntos de valor en un horario acotado. Este problema, generalizado, se le conoce como Team Orienteering Problem y en este art\'iculo se proceder\'a a revisar distintos acercamientos a este problema a trav\'es del tiempo con el objetivo de revisar las soluciones, o aproximaciones a soluciones, de cada uno comparando su eficiencia tanto en calidad de resultado como tiempo que demora en obtenerlo, para finalmente proponer una soluci\'on utilizando un algoritmo de Backtracking con GBJ.\\
+\keywords{Team Orienteering Problem, M\'etodo exacto, M\'etodo inexacto, Metaheur\'istica, Backtracking}
+\end{abstract}
+
+
+\input{sections/introduction.tex}
+\input{sections/definition.tex}
+\input{sections/sota.tex}
+\input{sections/model.tex}
+\input{sections/representation.tex}
+\input{sections/description.tex}
+\input{sections/experiments.tex}
+\input{sections/results.tex}
+\input{sections/conclusions.tex}
+
+\bibliographystyle{unsrt}
+\bibliography{Referencias}
+
+\end{document} 
