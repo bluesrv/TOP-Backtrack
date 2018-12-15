@@ -1,6 +1,10 @@
 #include "Vertex.hpp"
 #include <vector>
 
+/*
+    Basic implementation of auxiliary classes with their getters and setters
+*/
+
 Vertex::Vertex(double x, double y, double in_score)
 {
     x_pos = x;

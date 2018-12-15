@@ -2,6 +2,10 @@
 
 #include <vector>
 
+/*
+    Auxiliary class to store all that belongs to a vertex
+*/
+
 class Vertex
 {
     private:
@@ -13,12 +17,17 @@ class Vertex
     double getScore();
 };
 
+/*
+    Class that represents a solution, it has a matrix with the routes, and a lists with the times that correspondand indexes of routes takes
+    Also it keeps their score
+*/
+
 class Route
 {
     private:
     double score;
-    std::vector<double> times;
-    std::vector<std::vector<unsigned int>> subRoutes;
+    std::vector<double> times; // constant use of stack memory, it is reasigned with copies so reutilized
+    std::vector<std::vector<unsigned int>> subRoutes; // idem
     public:
     Route(unsigned int m);
     void setScore(double s);

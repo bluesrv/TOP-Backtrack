@@ -6,6 +6,10 @@
 #include "Vertex.hpp"
 #include "TOPBacktrack.hpp"
 
+/*
+    Implementation of methods described in TOPBacktrack.hpp
+*/
+
 TOPBacktrack::TOPBacktrack(std::vector<Vertex*> &vList, std::vector<std::vector<double>> &eMatrix, unsigned int m, double tMax, unsigned int size)
 {
     vertexList = &vList;
@@ -130,25 +134,11 @@ void TOPBacktrack::printResult()
         (*bestRoute).setSub((*results));
         (*bestRoute).setScore(currScore);
         sBest = currScore;
-        //flag = true;
+        flag = true;
     }
-    /*
-    std::cout << "Result found!" << std::endl;
-    std::cout << "Score: " << currScore << std::endl;
-    for(unsigned int i = 0; i < m; i++)
+    if(flag && pLocals)
     {
-        for(unsigned int j = 0; j < (*results)[i].size(); j++)
-        {
-            if(j == 0) std::cout << (*z)[(*y).size() - 1][(*results)[i].back()] << " ";
-            std::cout << " " << (*results)[i][j] + 1;
-        }
-        std::cout << " " << (*y).size() << std::endl;
-    }
-    */
-    if(flag)
-    {
-        //std::cout << "Result found!" << std::endl;
-        std::cout /*<< "Score: " */<< currScore << std::endl;
+        std::cout << currScore << std::endl;
         for(unsigned int i = 0; i < m; i++)
         {
             for(unsigned int j = 0; j < (*results)[i].size(); j++)
@@ -158,7 +148,6 @@ void TOPBacktrack::printResult()
             }
             std::cout << " " << (*y).size() << std::endl;
         }
-        //std::cout << "Esta es la mejor solucion actual" << std::endl;
     }
 }
 
@@ -187,6 +176,11 @@ void TOPBacktrack::undo(unsigned int i, unsigned int j)
     
 }
 
+void TOPBacktrack::printLocals()
+{
+    pLocals = true;
+}
+
 void TOPBacktrack::undoAllLast()
 {
     unsigned int j;
@@ -202,7 +196,7 @@ void TOPBacktrack::undoAllLast()
 
 void TOPBacktrack::printLast()
 {
-    std::cout /*<< "Score: " */<< (*bestRoute).getScore() << std::endl;
+    std::cout << (*bestRoute).getScore() << std::endl;
     std::vector<std::vector<unsigned int>> lastresults = (*bestRoute).getSubs();
     std::vector<double> lasttimes = (*bestRoute).getTimes();
     for(unsigned int i = 0; i < lastresults.size(); i++)
