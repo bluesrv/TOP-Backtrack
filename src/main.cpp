@@ -15,7 +15,7 @@ double euclideanDistance(double x_1, double x_2, double y_1 , double y_2)
 }
 
 // Adds euclidean distance related to edge into adyasence matrix
-void addEdge(std::vector<std::vector<double>> &matrix, std::vector<Vertex*> &list, unsigned int index)
+void addEdge(std::vector<std::vector<double> > &matrix, std::vector<Vertex*> &list, unsigned int index)
 {
     std::vector<Vertex*>::iterator it;
     unsigned int i;
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     // end params
     std::string foo; // auxiliary variable to store input text not used
     std::vector<Vertex*> *vertexList; // Lists of vertexes, each containing x and y position and score, using heap memory
-    std::vector<std::vector<double>> *edgeMatrix; // Adyasence matrix with euclidean distances, using heap memory
+    std::vector<std::vector<double> > *edgeMatrix; // Adyasence matrix with euclidean distances, using heap memory
     bool printLocals = false, printParams = false; // Argument flags
 
     if(argc > 1)
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
         std::cin >> foo >> maxT;
         // create params structures needed
         vertexList = new std::vector<Vertex*>(nodes);
-        edgeMatrix = new std::vector<std::vector<double>>(nodes);
+        edgeMatrix = new std::vector<std::vector<double> >(nodes);
         for(unsigned int i = 0; i < nodes; i++)
         {
             (*edgeMatrix)[i] = std::vector<double>(nodes, 0);

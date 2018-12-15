@@ -39,7 +39,7 @@ void Route::setTime(unsigned int index, double value)
     times[index] = value;
 }
 
-void Route::setSub(std::vector<std::vector<unsigned int>> &data)
+void Route::setSub(std::vector<std::vector<unsigned int> > &data)
 {
     subRoutes = data;
 }
@@ -54,7 +54,7 @@ std::vector<double> Route::getTimes()
     return times;
 }
 
-std::vector<std::vector<unsigned int>> Route::getSubs()
+std::vector<std::vector<unsigned int> > Route::getSubs()
 {
     return subRoutes;
 }

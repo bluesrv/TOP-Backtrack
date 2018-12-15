@@ -27,13 +27,13 @@ class Route
     private:
     double score;
     std::vector<double> times; // constant use of stack memory, it is reasigned with copies so reutilized
-    std::vector<std::vector<unsigned int>> subRoutes; // idem
+    std::vector<std::vector<unsigned int> > subRoutes; // idem
     public:
     Route(unsigned int m);
     void setScore(double s);
     void setTime(unsigned int index, double value);
-    void setSub(std::vector<std::vector<unsigned int>> &data);
+    void setSub(std::vector<std::vector<unsigned int> > &data);
     std::vector<double> getTimes();
     double getScore();
-    std::vector<std::vector<unsigned int>> getSubs();
+    std::vector<std::vector<unsigned int> > getSubs();
 };

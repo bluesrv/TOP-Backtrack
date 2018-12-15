@@ -10,22 +10,22 @@
     Implementation of methods described in TOPBacktrack.hpp
 */
 
-TOPBacktrack::TOPBacktrack(std::vector<Vertex*> &vList, std::vector<std::vector<double>> &eMatrix, unsigned int m, double tMax, unsigned int size)
+TOPBacktrack::TOPBacktrack(std::vector<Vertex*> &vList, std::vector<std::vector<double> > &eMatrix, unsigned int m, double tMax, unsigned int size)
 {
     vertexList = &vList;
     edgeMatrix = &eMatrix;
     routesAmm = m;
     maxT = tMax;
     
-    results =  new std::vector<std::vector<unsigned int>>();
+    results =  new std::vector<std::vector<unsigned int> >();
     bestRoute = new Route(m);
 
 
     y = new std::vector<bool>(size, false);
     (*y)[0] = true;
     (*y)[size - 1] = true; 
-    x = new std::vector<std::vector<bool>>(size);
-    z = new std::vector<std::vector<double>>(size);
+    x = new std::vector<std::vector<bool> >(size);
+    z = new std::vector<std::vector<double> >(size);
     for(unsigned int i = 0; i < size; i++)
     {
         (*x)[i] = std::vector<bool>(size, false);
@@ -197,7 +197,7 @@ void TOPBacktrack::undoAllLast()
 void TOPBacktrack::printLast()
 {
     std::cout << (*bestRoute).getScore() << std::endl;
-    std::vector<std::vector<unsigned int>> lastresults = (*bestRoute).getSubs();
+    std::vector<std::vector<unsigned int> > lastresults = (*bestRoute).getSubs();
     std::vector<double> lasttimes = (*bestRoute).getTimes();
     for(unsigned int i = 0; i < lastresults.size(); i++)
     {
